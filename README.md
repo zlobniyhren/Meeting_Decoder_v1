@@ -18,7 +18,7 @@ brew install fswatch
 
 ```bash
 # Перейдите в папку проекта
-cd "/Users/evgenijharitonenko/Вайбкодинг/Meeting decoder/CascadeProjects/windsurf-project"
+cd "/Users/evgenijharitonenko/Вайбкодинг/Meeting decoder/CascadeProjects/Meeting_Decoder_v1_git/Meeting_Decoder_v1"
 
 # Сделайте скрипт исполняемым
 chmod +x video_processor.sh
@@ -40,7 +40,7 @@ chmod +x video_processor.sh
 ## Структура папок
 
 ```
-windsurf-project/
+Meeting_Decoder_v1/
 ├── video_processor.sh          # Основной скрипт
 ├── video_input/               # Папка для входных видео
 │   └── processed/             # Обработанные видео

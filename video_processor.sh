@@ -2,9 +2,10 @@
 
 # Настройки
 WHISPER_PATH="/Users/evgenijharitonenko/Вайбкодинг/Whisper/build/bin/whisper-cli"
-VIDEO_INPUT_DIR="/Users/evgenijharitonenko/Вайбкодинг/Meeting decoder/CascadeProjects/windsurf-project/video_input"
-AUDIO_OUTPUT_DIR="/Users/evgenijharitonenko/Вайбкодинг/Meeting decoder/CascadeProjects/windsurf-project/audio_output"
-TEXT_OUTPUT_DIR="/Users/evgenijharitonenko/Вайбкодинг/Meeting decoder/CascadeProjects/windsurf-project/text_output"
+SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+VIDEO_INPUT_DIR="$SCRIPT_DIR/video_input"
+AUDIO_OUTPUT_DIR="$SCRIPT_DIR/audio_output"
+TEXT_OUTPUT_DIR="$SCRIPT_DIR/text_output"
 WHISPER_MODEL_PATH="${WHISPER_MODEL_PATH:-/Users/evgenijharitonenko/Вайбкодинг/Whisper/models/ggml-small.bin}"
 WHISPER_LANG="${WHISPER_LANG:-ru}"
 VAD_MODEL_PATH="/Users/evgenijharitonenko/Вайбкодинг/Whisper/models/for-tests-silero-v5.1.2-ggml.bin"
@@ -159,6 +160,13 @@ echo "📂 Поместите видео файлы в папку: $VIDEO_INPUT_
 echo "ℹ️  Чтобы включить VAD: USE_VAD=1 ./video_processor.sh"
 echo "ℹ️  Язык распознавания: $WHISPER_LANG (переопределить: WHISPER_LANG=auto)"
 echo ""
+
+# Обрабатываем видео, которые уже лежат в папке на момент запуска
+for video_file in "$VIDEO_INPUT_DIR"/*.{mp4,avi,mov,mkv,flv,wmv}; do
+    if [ -f "$video_file" ]; then
+        process_video "$video_file"
+    fi
+done
 
 # Используем fswatch для отслеживания новых файлов (если установлен)
 if command -v fswatch &> /dev/null; then

@@ -4,9 +4,10 @@
 # Использует существующее видео из папки Whisper
 
 WHISPER_PATH="/Users/evgenijharitonenko/Вайбкодинг/Whisper/build/bin/whisper-cli"
-VIDEO_INPUT_DIR="/Users/evgenijharitonenko/Вайбкодинг/Meeting decoder/CascadeProjects/windsurf-project/video_input"
-AUDIO_OUTPUT_DIR="/Users/evgenijharitonenko/Вайбкодинг/Meeting decoder/CascadeProjects/windsurf-project/audio_output"
-TEXT_OUTPUT_DIR="/Users/evgenijharitonenko/Вайбкодинг/Meeting decoder/CascadeProjects/windsurf-project/text_output"
+SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+VIDEO_INPUT_DIR="$SCRIPT_DIR/video_input"
+AUDIO_OUTPUT_DIR="$SCRIPT_DIR/audio_output"
+TEXT_OUTPUT_DIR="$SCRIPT_DIR/text_output"
 
 echo "🧪 Тестирование обработки видео..."
 
