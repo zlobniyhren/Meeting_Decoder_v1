@@ -9,7 +9,7 @@ TEXT_OUTPUT_DIR="$SCRIPT_DIR/text_output"
 WHISPER_MODEL_PATH="${WHISPER_MODEL_PATH:-/Users/evgenijharitonenko/Вайбкодинг/Whisper/models/ggml-small.bin}"
 WHISPER_LANG="${WHISPER_LANG:-ru}"
 VAD_MODEL_PATH="/Users/evgenijharitonenko/Вайбкодинг/Whisper/models/for-tests-silero-v5.1.2-ggml.bin"
-USE_VAD="${USE_VAD:-0}"
+USE_VAD="${USE_VAD:-1}"
 
  shopt -s nullglob
 
@@ -83,6 +83,8 @@ function process_video() {
             -otxt
             -l "$WHISPER_LANG"
             -t 8
+            -mc 0   # не тащить предыдущий текст в контекст — иначе Whisper зацикливается на повторах
+            -sns    # подавлять «неречевые» токены вроде [музыка]
         )
         
         if [ "$USE_VAD" = "1" ]; then
@@ -157,7 +159,7 @@ fi
 # Отслеживаем новые файлы
 echo "👀 Начинаю отслеживание новых видео файлов..."
 echo "📂 Поместите видео файлы в папку: $VIDEO_INPUT_DIR"
-echo "ℹ️  Чтобы включить VAD: USE_VAD=1 ./video_processor.sh"
+echo "ℹ️  VAD (пропуск тишины) включён. Выключить: USE_VAD=0 ./video_processor.sh"
 echo "ℹ️  Язык распознавания: $WHISPER_LANG (переопределить: WHISPER_LANG=auto)"
 echo ""
 
